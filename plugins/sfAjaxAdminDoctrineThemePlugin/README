@@ -1,0 +1,61 @@
+#sfAjaxAdminDoctrineThemePlugin#
+
+sfAjaxAdminDoctrineThemePlugin is a symfony plugin to ajaxify the symfony admin generator.
+
+With this plugin, your admin pages will be automatically converted to use AJAX for all user gestures, greatly improving the interactivity and "feel" of your application.
+
+Each admin page is loaded once, and from that point, all admin actions are handled as AJAX requests which return JSON-encoded page sections which are used to update the various sections of the page.
+
+The AJAX/JSON approach results in a much snappier user interface because user gestures do not result in page reloads.  As a result, the application feels more like a desktop application, resulting in greater user satisfaction.
+
+This plugin was developed using the default admin theme as a starting point.
+
+Developed on/for symfony 1.4.1 with Doctrine ORM.
+
+## Installation ##
+  * Add the jQuery library from http://jquery.com under the web folder.  Add it to your view.yml.
+
+  * Install the plugin.
+      Using symfony command line:
+          ./symfony plugin:install sfAjaxAdminDoctrineThemePlugin
+      Or get the latest version from the subversion repository:
+          svn co http://svn.symfony-project.com/plugins/sfAjaxAdminDoctrineThemePlugin plugins/sfAjaxAdminDoctrineThemePlugin
+
+  * If you installed by subversion, activate the plugin in the config/ProjectConfiguration.class.php file (this will have already been done automatically if you used the plugin:install symfony command).
+
+        [php]
+        class ProjectConfiguration extends sfProjectConfiguration
+        {
+          public function setup()
+          {
+            ...
+            $this->enablePlugins('sfAjaxAdminDoctrineThemePlugin');
+            ...
+          }
+        }
+
+  * Clear your cache
+
+        $ ./symfony cc
+
+  * Publish the plugin assets:
+
+        ./symfony plugin:publish-assets
+
+## How to use ##
+  * Generate an admin generator, for example:
+
+        ./symfony --theme=ajaxadmindoctrine doctrine:generate-admin frontend Product --module=product
+
+  * If you already have an admin generated, you can simply change the theme inside your generator.yml, then clear your cache.
+
+        theme: ajaxadmindoctrine
+
+
+  * Position the AJAX spinner component.  Add something like this to your CSS file:
+        #sf_ajax_spinner {
+            display: block;
+            position: absolute;
+            top: 45px;
+            right: 8px;
+        }
